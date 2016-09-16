@@ -3,12 +3,12 @@ defmodule Rumbl.VideoController do
 
   alias Rumbl.Video
 
-  def index(conn, _params) do
+  def index(conn, _params, user) do
     videos = Repo.all(user_videos(user))
     render(conn, "index.html", videos: videos)
   end
 
-  def new(conn, _params) do
+  def new(conn, _params, user) do
     changeset =
       user
       |> build_assoc(:videos)
@@ -17,7 +17,7 @@ defmodule Rumbl.VideoController do
     render(conn, "new.html", changeset: changeset)
   end
 
-  def create(conn, %{"video" => video_params}) do
+  def create(conn, %{"video" => video_params}, user) do
     changeset =
       user
       |> build_assoc(:videos)
@@ -33,18 +33,18 @@ defmodule Rumbl.VideoController do
     end
   end
 
-  def show(conn, %{"id" => id}) do
+  def show(conn, %{"id" => id}, user) do
     video = Repo.get!(user_videos(user), id)
     render(conn, "show.html", video: video)
   end
 
-  def edit(conn, %{"id" => id}) do
+  def edit(conn, %{"id" => id}, user) do
     video = Repo.get!(user_videos(user), id)
     changeset = Video.changeset(video)
     render(conn, "edit.html", video: video, changeset: changeset)
   end
 
-  def update(conn, %{"id" => id, "video" => video_params}) do
+  def update(conn, %{"id" => id, "video" => video_params}, user) do
     video = Repo.get!(user_videos(user), id)
     changeset = Video.changeset(video, video_params)
 
@@ -58,7 +58,7 @@ defmodule Rumbl.VideoController do
     end
   end
 
-  def delete(conn, %{"id" => id}) do
+  def delete(conn, %{"id" => id}, user) do
     video = Repo.get!(user_videos(user), id)
 
     # Here we use delete! (with a bang) because we expect

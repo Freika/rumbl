@@ -1,4 +1,5 @@
 # Rumbl
+[![Build Status](https://semaphoreci.com/api/v1/frey/rumbl/branches/master/badge.svg)](https://semaphoreci.com/frey/rumbl)
 
 To start your Phoenix app:
 
